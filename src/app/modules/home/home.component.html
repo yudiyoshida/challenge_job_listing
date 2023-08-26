@@ -1,34 +1,56 @@
+<!-- eslint-disable @angular-eslint/template/interactive-supports-focus -->
+<!-- eslint-disable @angular-eslint/template/click-events-have-key-events -->
 <section>
   <div class="bg-cyan w-full">
     <img src="assets/svg/bg-header-desktop.svg" alt="">
   </div>
-  <div class="bg-light-grayish-cyan-background">
-    <ul class="space-y-5 py-10">
-      <li *ngFor="let job of JOBS">
-        <div class="relative bg-white mx-5 p-4 rounded-lg shadow-lg" [ngClass]="{ 'border-l-8 border-l-cyan': job.featured }">
-          <div class="lg:flex lg:justify-start lg:items-center gap-4">
-            <img [src]="job.logo" alt="" class="h-full">
-            <div class="space-y-2 lg:grow">
-              <div class="flex justify-start items-center gap-4">
-                <h2 class="font-bold text-cyan">{{ job.company }}</h2>
-                <p class="px-3 py-1 rounded-3xl font-bold text-white bg-cyan" *ngIf="job.new">NEW!</p>
-                <p class="px-3 py-1 rounded-3xl font-bold text-white bg-very-dark-grayish-cyan" *ngIf="job.featured">FEATURED</p>
+  <div class="bg-light-grayish-cyan-background px-10 h-fit">
+    <div class="relative" [ngClass]="{ '-top-8': filters.size }">
+
+      <div *ngIf="filters.size" class="w-full bg-white flex justify-between items-center px-5 py-3 shadow-lg">
+        <ul class="flex flex-wrap justify-start items-center gap-4">
+          <div *ngFor="let item of filters">
+            <button class="tag-filter" #tag>{{ item }}</button>
+            <button class="tag-close-btn" (click)="removeFromFilter(tag.innerText)">X</button>
+          </div>
+        </ul>
+        <p class="font-bold text-dark-grayish-cyan cursor-pointer hover:text-cyan hover:underline"
+          (click)="clearFilter()"
+        >Clear</p>
+      </div>
+      
+      <ul class="space-y-5 py-10">
+        <li *ngFor="let job of jobs">
+
+          <div class="relative bg-white p-4 rounded-lg shadow-lg" [ngClass]="{ 'border-l-8 border-l-cyan': job.featured }">
+            <div class="lg:flex lg:justify-start lg:items-center gap-4">
+              <img [src]="job.logo" alt="" class="h-full">
+              <div class="space-y-2 lg:grow">
+                <div class="flex justify-start items-center gap-4">
+                  <h2 class="font-bold text-cyan">{{ job.company }}</h2>
+                  <p class="px-3 py-1 rounded-3xl font-bold text-white bg-cyan" *ngIf="job.new">NEW!</p>
+                  <p class="px-3 py-1 rounded-3xl font-bold text-white bg-very-dark-grayish-cyan" *ngIf="job.featured">FEATURED</p>
+                </div>
+                <h1 class="inline-block font-bold text-xl text-very-dark-grayish-cyan cursor-pointer hover:text-cyan">{{ job.position }}</h1>
+                <p class="text-dark-grayish-cyan">{{ job.postedAt }} • {{ job.contract }} • {{ job.location }}</p>
               </div>
-              <h1 class="font-bold text-xl text-very-dark-grayish-cyan cursor-pointer hover:text-cyan">{{ job.position }}</h1>
-              <p class="text-dark-grayish-cyan">{{ job.postedAt }} • {{ job.contract }} • {{ job.location }}</p>
-            </div>
-            <hr class="my-4 lg:hidden">
-            <div>
-              <div class="flex flex-wrap gap-4">
-                <span class="tag">{{ job.role }}</span>
-                <span class="tag">{{ job.level }}</span>
-                <span class="tag" *ngFor="let language of job.languages">{{ language }}</span>
-                <span class="tag" *ngFor="let tool of job.tools">{{ tool }}</span>
+
+              <hr class="my-4 lg:hidden">
+              
+              <div>
+                <div class="flex flex-wrap gap-4">
+                  <button (click)="addToFilter($event)" class="tag-job">{{ job.role }}</button>
+                  <button (click)="addToFilter($event)" class="tag-job">{{ job.level }}</button>
+                  <button (click)="addToFilter($event)" class="tag-job" *ngFor="let language of job.languages">{{ language }}</button>
+                  <button (click)="addToFilter($event)" class="tag-job" *ngFor="let tool of job.tools">{{ tool }}</button>
+                </div>
               </div>
+
             </div>
           </div>
-        </div>
-      </li>
-    </ul>
+        </li>
+      </ul>
+
+    </div>
   </div>
 </section>

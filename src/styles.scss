@@ -5,7 +5,15 @@
 @tailwind utilities;
 
 @layer components {
-  .tag {
+  .tag-job {
     @apply rounded-sm inline-block p-2 text-cyan font-bold bg-light-grayish-cyan-background cursor-pointer hover:bg-cyan hover:text-white
+  }
+
+  .tag-filter {
+    @apply rounded-sm inline-block p-2 text-cyan font-bold bg-light-grayish-cyan-background
+  }
+
+  .tag-close-btn {
+    @apply rounded-tr-sm rounded-br-sm inline-block p-2 text-white font-bold bg-cyan cursor-pointer hover:bg-very-dark-grayish-cyan
   }
 }
