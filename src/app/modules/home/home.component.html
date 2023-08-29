@@ -5,11 +5,11 @@
     <img src="assets/svg/bg-header-desktop.svg" alt="">
   </div>
   <div class="bg-light-grayish-cyan-background px-10 h-fit">
-    <div class="relative" [ngClass]="{ '-top-8': filters.size }">
+    <div class="relative -top-8">
 
-      <div *ngIf="filters.size" class="w-full bg-white flex justify-between items-center px-5 py-3 shadow-lg">
+      <div class="w-full bg-white flex justify-between items-center px-5 py-3 shadow-lg">
         <ul class="flex flex-wrap justify-start items-center gap-4">
-          <div *ngFor="let item of filters">
+          <div *ngFor="let item of filters | async">
             <button class="tag-filter" #tag>{{ item }}</button>
             <button class="tag-close-btn" (click)="removeFromFilter(tag.innerText)">X</button>
           </div>
@@ -31,7 +31,7 @@
                   <p class="px-3 py-1 rounded-3xl font-bold text-white bg-cyan" *ngIf="job.new">NEW!</p>
                   <p class="px-3 py-1 rounded-3xl font-bold text-white bg-very-dark-grayish-cyan" *ngIf="job.featured">FEATURED</p>
                 </div>
-                <h1 class="inline-block font-bold text-xl text-very-dark-grayish-cyan cursor-pointer hover:text-cyan">{{ job.position }}</h1>
+                <h1 routerLink="detail" class="inline-block font-bold text-xl text-very-dark-grayish-cyan cursor-pointer hover:text-cyan">{{ job.position }}</h1>
                 <p class="text-dark-grayish-cyan">{{ job.postedAt }} • {{ job.contract }} • {{ job.location }}</p>
               </div>
 
